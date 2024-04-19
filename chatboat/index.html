@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatbot</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .chat-container {
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      width: 300px;
+    }
+
+    .logo {
+      text-align: center;
+      padding: 10px;
+    }
+
+    .logo img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .chat-box {
+      height: 400px; /* Adjusted height */
+      overflow-y: scroll;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    input[type="text"] {
+      width: 70%;
+      padding: 10px;
+      margin: 0 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .message {
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .user {
+      background-color: #f0f0f0;
+      text-align: right;
+    }
+
+    .bot {
+      background-color: #007bff;
+      color: white;
+      text-align: left;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="logo">
+      <img src="code with pratik.jpg" alt="Chatbot Logo">
+    </div>
+    <div class="chat-box" id="chat-box"></div>
+    <input type="text" id="user-input" placeholder="Type your message...">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+  <script>
+    function sendMessage() {
+      var userInput = document.getElementById("user-input").value;
+      if (userInput.trim() !== "") {
+        displayMessage(userInput, "user");
+        getResponse(userInput);
+        document.getElementById("user-input").value = "";
+      }
+    }
+
+    function displayMessage(message, sender) {
+      var chatBox = document.getElementById("chat-box");
+      var messageElement = document.createElement("div");
+      messageElement.classList.add("message", sender);
+      messageElement.innerHTML = message;
+      chatBox.appendChild(messageElement);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function getResponse(message) {
+      var response = "Sorry, I didn't understand.";
+
+      var wordsToResponses = {
+        "hii": "Hello!",
+        "problem": "What is your problem? Ask me",
+        "you": "I am a chatbot.",
+        "india": "140 core.",
+        "of c language":"danich richi",
+        "question": "What is your question? Ask me",
+
+
+      };
+
+      var lowerCaseMessage = message.toLowerCase();
+      for (var word in wordsToResponses) {
+        if (lowerCaseMessage.includes(word)) {
+          response = wordsToResponses[word];
+          break;
+        }
+      }
+
+      displayMessage(response, "bot");
+    }
+  </script>
+</body>
+</html>
